@@ -1,4 +1,4 @@
-package com.sialitski.data.dao
+package com.sialitski.data.storage.models.dao
 
 import androidx.room.Dao
 import androidx.room.Delete

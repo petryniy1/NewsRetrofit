@@ -1,4 +1,4 @@
-package com.sialitski.data.dao
+package com.sialitski.data.storage.models.dao
 
 import android.os.Build.VERSION
 import androidx.room.Database
