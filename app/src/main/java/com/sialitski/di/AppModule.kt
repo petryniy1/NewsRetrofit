@@ -1,6 +1,6 @@
 package com.sialitski.di
 
-import com.sialitski.presentation.NewsSharedViewModel
+import com.sialitski.presentation.viewModels.NewsSharedViewModel
 import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 

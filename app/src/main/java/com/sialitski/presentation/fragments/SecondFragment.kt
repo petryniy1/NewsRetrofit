@@ -1,4 +1,4 @@
-package com.sialitski.presentation
+package com.sialitski.presentation.fragments
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
