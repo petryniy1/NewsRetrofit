@@ -9,12 +9,12 @@ import com.sialitski.domain.repository.NewsRepository
 import com.sialitski.domain.storage.models.News
 import kotlinx.coroutines.launch
 
-class NewsSharedViewModel(private val repository: NewsRepository) : ViewModel() {
+class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> get() = _news
 
-    private val _dataNews = MutableLiveData<List<News>>()
-    val daoNews: LiveData<List<News>> get() = _dataNews
+    //private val _dataNews = MutableLiveData<List<News>>()
+   // val daoNews: LiveData<List<News>> get() = _dataNews
 
     init {
         Log.e("aaa", "VM OPEN")
@@ -33,11 +33,11 @@ class NewsSharedViewModel(private val repository: NewsRepository) : ViewModel() 
         }
     }
 
-    fun loadDataNews() {
-        viewModelScope.launch {
-            _dataNews.value = repository.getDataNews()
-        }
-    }
+    //fun loadDataNews() {
+        //viewModelScope.launch {
+          //  _dataNews.value = repository.getDataNews()
+        //}
+    //}
 
     fun saveNews(news: News) {
         viewModelScope.launch {
