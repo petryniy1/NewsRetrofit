@@ -30,7 +30,7 @@ class NewsViewHolder(
         item.urlToImage?.let { loadImageByUrl(it) }
 
         checkBox.setOnClickListener {
-//            itemClickListener.onIconClickListener(bindingAdapterPosition)
+            itemClickListener.onIconClickListener(adapterPosition)
         }
     }
 

@@ -1,6 +1,5 @@
 package com.sialitski.presentation.viewModels
 
-import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -13,12 +12,8 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> get() = _news
 
-    //private val _dataNews = MutableLiveData<List<News>>()
-   // val daoNews: LiveData<List<News>> get() = _dataNews
-
-    init {
-        Log.e("aaa", "VM OPEN")
-    }
+//    private val _dataNews = MutableLiveData<List<News>>()
+//    val daoNews: LiveData<List<News>> get() = _dataNews
 
     fun onNewsItemClicked(position: Int) {
         val item = _news.value?.get(position) ?: return
@@ -33,11 +28,11 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
         }
     }
 
-    //fun loadDataNews() {
-        //viewModelScope.launch {
-          //  _dataNews.value = repository.getDataNews()
-        //}
-    //}
+    fun loadDataNews() {
+        viewModelScope.launch {
+            _news.value = repository.getDataNews().reversed()
+        }
+    }
 
     fun saveNews(news: News) {
         viewModelScope.launch {
@@ -49,10 +44,5 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
         viewModelScope.launch {
             repository.deleteDataNews(news)
         }
-    }
-
-    override fun onCleared() {
-        Log.e("aaa", "VM OPEN")
-        super.onCleared()
     }
 }

@@ -1,7 +1,6 @@
 package com.sialitski.presentation.fragments
 
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,11 +31,6 @@ class FragmentNews : Fragment(R.layout.fragment_news) {
         }
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        Log.e("aaa", "Fragment NEWS OPEN")
-        super.onCreate(savedInstanceState)
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,9 +45,9 @@ class FragmentNews : Fragment(R.layout.fragment_news) {
             findNavController().navigate(R.id.action_FirstFragment_to_SecondFragment)
         }
 
-        initRecycler()
-
         initObservers()
+
+        initRecycler()
 
         viewModel.loadRetrofitNews()
     }
@@ -66,8 +60,8 @@ class FragmentNews : Fragment(R.layout.fragment_news) {
 
     private fun initRecycler() {
         binding.run {
-            recycler.adapter = adapter
-            recycler.layoutManager = LinearLayoutManager(context)
+            recyclerNews.adapter = adapter
+            recyclerNews.layoutManager = LinearLayoutManager(context)
         }
     }
 }

@@ -1,33 +1,43 @@
 package com.sialitski.presentation.fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.sialitski.R
 import com.sialitski.databinding.FragmentFavoritesBinding
+import com.sialitski.domain.OnNewsClickListener
+import com.sialitski.domain.storage.models.News
+import com.sialitski.presentation.recyclerView.NewsAdapter
+import com.sialitski.presentation.viewModels.NewsViewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-/**
- * A simple [Fragment] subclass as the second destination in the navigation.
- */
-class FragmentFavorites : Fragment() {
+class FragmentFavorites : Fragment(R.layout.fragment_favorites) {
 
-    private var _binding: FragmentFavoritesBinding? = null
+    private val binding: FragmentFavoritesBinding
+            by viewBinding(FragmentFavoritesBinding::bind)
+    private val viewModel: NewsViewModel by viewModel()
+    private val adapter by lazy { NewsAdapter(newsClickListener) }
 
-    // This property is only valid between onCreateView and
-    // onDestroyView.
-    private val binding get() = _binding!!
+    private val newsClickListener: OnNewsClickListener = object :
+        OnNewsClickListener {
+        override fun onIconClickListener(position: Int) {
+            viewModel.onNewsItemClicked(position)
+
+            viewModel.deleteDataNews((viewModel.news.value?.get(position) ?: 1) as News)
+        }
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        _binding = FragmentFavoritesBinding.inflate(inflater, container, false)
-        return binding.root
-
+        return inflater.inflate(R.layout.fragment_favorites, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -36,10 +46,24 @@ class FragmentFavorites : Fragment() {
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
         }
+
+        initObservers()
+
+        initRecycler()
+
+        viewModel.loadDataNews()
     }
 
-    override fun onDestroyView() {
-        super.onDestroyView()
-        _binding = null
+    private fun initObservers() {
+        viewModel.news.observe(viewLifecycleOwner) { news ->
+            adapter.submitList(news)
+        }
+    }
+
+    private fun initRecycler() {
+        binding.run {
+            recyclerFavorites.adapter = adapter
+            recyclerFavorites.layoutManager = LinearLayoutManager(context)
+        }
     }
 }
