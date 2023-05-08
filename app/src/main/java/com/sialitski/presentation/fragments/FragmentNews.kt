@@ -11,7 +11,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.sialitski.R
 import com.sialitski.databinding.FragmentNewsBinding
 import com.sialitski.domain.OnNewsClickListener
-import com.sialitski.domain.storage.models.News
 import com.sialitski.presentation.recyclerView.NewsAdapter
 import com.sialitski.presentation.viewModels.NewsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -26,8 +25,7 @@ class FragmentNews : Fragment(R.layout.fragment_news) {
         OnNewsClickListener {
         override fun onIconClickListener(position: Int) {
             viewModel.onNewsItemClicked(position)
-
-            viewModel.saveNews((viewModel.news.value?.get(position) ?: 1) as News)
+            viewModel.news.value?.get(position)?.let { viewModel.saveNews(it) }
         }
     }
 

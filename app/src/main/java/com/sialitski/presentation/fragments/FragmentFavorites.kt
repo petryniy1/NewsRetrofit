@@ -11,7 +11,6 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.sialitski.R
 import com.sialitski.databinding.FragmentFavoritesBinding
 import com.sialitski.domain.OnNewsClickListener
-import com.sialitski.domain.storage.models.News
 import com.sialitski.presentation.recyclerView.NewsAdapter
 import com.sialitski.presentation.viewModels.NewsViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -27,11 +26,9 @@ class FragmentFavorites : Fragment(R.layout.fragment_favorites) {
         OnNewsClickListener {
         override fun onIconClickListener(position: Int) {
             viewModel.onNewsItemClicked(position)
-
-            viewModel.deleteDataNews((viewModel.news.value?.get(position) ?: 1) as News)
+            viewModel.news.value?.get(position)?.let { viewModel.deleteDataNews(it) }
         }
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

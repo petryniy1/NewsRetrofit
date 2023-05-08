@@ -1,4 +1,4 @@
-package com.sialitski.data.retrofit
+package com.sialitski.data.storage.retrofit
 
 import com.google.gson.Gson
 import com.google.gson.GsonBuilder

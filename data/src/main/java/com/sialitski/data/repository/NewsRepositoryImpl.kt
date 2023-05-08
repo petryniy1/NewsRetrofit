@@ -1,8 +1,8 @@
 package com.sialitski.data.repository
 
-import com.sialitski.data.retrofit.NewsApi
+import com.sialitski.data.storage.dao.NewsDao
 import com.sialitski.data.storage.models.NewsResponse
-import com.sialitski.data.storage.models.dao.NewsDao
+import com.sialitski.data.storage.retrofit.NewsApi
 import com.sialitski.domain.repository.NewsRepository
 import com.sialitski.domain.storage.models.News
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import kotlinx.coroutines.withContext
 class NewsRepositoryImpl(
     private val newsDao: NewsDao,
     private val newsApi: NewsApi
-    ) : NewsRepository {
+) : NewsRepository {
     override suspend fun getNetworkNews(): List<News> {
         return withContext(Dispatchers.IO) {
             downloadNetworkNews().articles.map { articles -> articles.toNews() }
@@ -31,7 +31,10 @@ class NewsRepositoryImpl(
     }
 
     override suspend fun deleteDataNews(news: News) {
-        newsDao.deleteNews(news.toNewsEntity())
+        withContext(Dispatchers.IO) {
+            newsDao.deleteNews(news.toNewsEntity())
+        }
+
     }
 
     private suspend fun downloadNetworkNews(): NewsResponse {

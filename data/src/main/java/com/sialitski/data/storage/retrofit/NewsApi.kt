@@ -1,9 +1,9 @@
-package com.sialitski.data.retrofit
+package com.sialitski.data.storage.retrofit
 
-import retrofit2.http.GET
-import retrofit2.http.Query
 import com.sialitski.data.storage.models.NewsResponse
 import com.sialitski.data.storage.models.SourceResponse
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface NewsApi {
 

@@ -1,6 +1,5 @@
-package com.sialitski.data.storage.models.dao
+package com.sialitski.data.storage.dao
 
-import android.os.Build.VERSION
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import com.sialitski.data.storage.models.NewsEntity

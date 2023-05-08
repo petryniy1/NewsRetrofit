@@ -1,4 +1,4 @@
-package com.sialitski.data.storage.models.dao
+package com.sialitski.data.storage.dao
 
 import androidx.room.Dao
 import androidx.room.Delete
@@ -17,4 +17,5 @@ interface NewsDao {
 
     @Delete
     suspend fun deleteNews(news: NewsEntity)
+
 }

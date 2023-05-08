@@ -6,6 +6,7 @@ import com.sialitski.domain.storage.models.News
 
 fun NewsEntity.toNews() =
     News(
+        id = id,
         title = title,
         urlToImage = urlToImage,
         isChecked = true
@@ -13,6 +14,7 @@ fun NewsEntity.toNews() =
 
 fun News.toNewsEntity() =
     NewsEntity(
+        id = id,
         title = title,
         urlToImage = urlToImage
     )

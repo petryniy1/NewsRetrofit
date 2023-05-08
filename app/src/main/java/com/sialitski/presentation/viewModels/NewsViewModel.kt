@@ -12,9 +12,6 @@ class NewsViewModel(private val repository: NewsRepository) : ViewModel() {
     private val _news = MutableLiveData<List<News>>()
     val news: LiveData<List<News>> get() = _news
 
-//    private val _dataNews = MutableLiveData<List<News>>()
-//    val daoNews: LiveData<List<News>> get() = _dataNews
-
     fun onNewsItemClicked(position: Int) {
         val item = _news.value?.get(position) ?: return
         val list = _news.value?.toMutableList() ?: return
